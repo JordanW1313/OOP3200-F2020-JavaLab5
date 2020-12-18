@@ -144,7 +144,7 @@ public class Main extends Application {
         pane.add(heightInput, 2, 13);
         pane.add(weightInput, 2, 14);
         pane.add(bmiOutput, 2, 15);
-        // need to figure our row span
+        // NEED TO FIGURE OUT COLUMN SPAN
         pane.add(calculateBMI, 1, 17, 3, 1);
         pane.add(bmiStringLabel, 1 ,19, 3, 1);
 
