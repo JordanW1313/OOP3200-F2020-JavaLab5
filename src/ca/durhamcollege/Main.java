@@ -1,4 +1,8 @@
-
+/*  Names: Jordan Wriker, Ahmed Rizvi
+    Date: December 18, 2020
+    Course: OOP3200
+    Assignment: Java Lab 5
+* */
 
 package ca.durhamcollege;
 
