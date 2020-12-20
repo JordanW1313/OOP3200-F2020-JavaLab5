@@ -1,5 +1,5 @@
 /*  Names: Jordan Wriker, Ahmed Rizvi
-    Date: December 18, 2020
+    Date: December 20, 2020
     Course: OOP3200
     Assignment: Java Lab 5
 * */
@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    // Sey height and width attributes
+    // Set height and width attributes
     public static int WIDTH = 650;
     public static int HEIGHT = 600;
 
@@ -47,6 +47,8 @@ public class Main extends Application {
         Label inchesLabel = new Label("/inches");
         Label bmiLabel = new Label("      My BMI: ");
         Label bmiStringLabel = new Label("");
+        bmiStringLabel.setWrapText(true);
+        bmiStringLabel.setMaxWidth(500);
 
         // create all text field controls
         TextField weightInput = new TextField();
@@ -80,18 +82,44 @@ public class Main extends Application {
                 String bmiString;
                 String bmiOut;
                 String bmiResult = "";
+                String errorMsg = "";
 
-                // check if height and weight are empty
+                // check if height and weight are empty, generate an error message appropriately
                 if(heightInput.getText() == null || heightInput.getText().trim().isEmpty())
                 {
-                    bmiStringLabel.setText("You must enter a height. Please try again.");
+                    errorMsg += "You must enter a height.\n";
                     isValid = false;
                 }
-                else if(weightInput.getText() == null || weightInput.getText().trim().isEmpty())
+                if(weightInput.getText() == null || weightInput.getText().trim().isEmpty())
                 {
-                    bmiStringLabel.setText("You must enter a weight. Please try again.");
+                    errorMsg+= "You must enter a weight.\n";
                     isValid = false;
                 }
+
+                if(isValid)
+                {
+                    // parse inputs to see if they are double
+                    double attemptParse;
+                    try
+                    {
+                        attemptParse = Double.parseDouble(weightInput.getText());
+                        attemptParse = Double.parseDouble(heightInput.getText());
+                    }
+                    catch (NumberFormatException numberFormatException)
+                    {
+                        errorMsg += "Please input numeric values only.\n";
+                        isValid = false;
+                    }
+                }
+
+                // one or more fields were left empty
+                if(!errorMsg.trim().isEmpty())
+                {
+                    errorMsg += "Please try again.";
+                }
+
+                // display the error message to the user
+                bmiStringLabel.setText(errorMsg);
 
                 // if height and weight are valid calculate bmi
                 if (isValid == true)
@@ -119,7 +147,7 @@ public class Main extends Application {
                         bmiResult = "Obese.";
                     }
 
-                    // out put bmi info to appropriate controls
+                    // output bmi info to appropriate controls
                     bmiOutput.setText(bmiString);
                     bmiStringLabel.setText(bmiOut + bmiResult);
                 }
@@ -128,25 +156,25 @@ public class Main extends Application {
 
         // create a new grid pane
         GridPane pane = new GridPane();
+        //pane.setGridLinesVisible(true);
         // set grid pane horizontal gap
         pane.setHgap(10);
         // set grid pane vertical gap
         pane.setVgap(10);
         // set grid pane padding
-        pane.setPadding(new Insets(10));
+        pane.setPadding(new Insets(10, 10, 10, 10));
 
-        // add all controls to the gird pane
-        pane.add(heightLabel, 1, 13);
-        pane.add(weightLabel, 1, 14);
-        pane.add(bmiLabel, 1 , 15);
-        pane.add(inchesLabel, 3, 13);
-        pane.add(poundsLabel, 3, 14);
-        pane.add(heightInput, 2, 13);
-        pane.add(weightInput, 2, 14);
-        pane.add(bmiOutput, 2, 15);
-        // NEED TO FIGURE OUT COLUMN SPAN
-        pane.add(calculateBMI, 1, 17, 3, 1);
-        pane.add(bmiStringLabel, 1 ,19, 3, 1);
+        // add all controls to the grid pane
+        pane.add(heightLabel, 7, 13);
+        pane.add(weightLabel, 7, 14);
+        pane.add(bmiLabel, 7, 15);
+        pane.add(inchesLabel, 10, 13); // add four more to column
+        pane.add(poundsLabel, 10, 14);
+        pane.add(heightInput, 9, 13);
+        pane.add(weightInput, 9, 14);
+        pane.add(bmiOutput, 9, 15);
+        pane.add(calculateBMI, 8, 17, 3, 1);
+        pane.add(bmiStringLabel, 6 ,21, 9, 3);
 
         // create new scene, add gird pane, and set height and width;
         Scene scene = new Scene(pane, WIDTH, HEIGHT);
