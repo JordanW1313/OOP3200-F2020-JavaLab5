@@ -87,12 +87,12 @@ public class Main extends Application {
                 // check if height and weight are empty, generate an error message appropriately
                 if(heightInput.getText() == null || heightInput.getText().trim().isEmpty())
                 {
-                    errorMsg += "You must enter a height.\n";
+                    errorMsg += "You must enter a height. ";
                     isValid = false;
                 }
                 if(weightInput.getText() == null || weightInput.getText().trim().isEmpty())
                 {
-                    errorMsg+= "You must enter a weight.\n";
+                    errorMsg+= "You must enter a weight. ";
                     isValid = false;
                 }
 
@@ -107,7 +107,7 @@ public class Main extends Application {
                     }
                     catch (NumberFormatException numberFormatException)
                     {
-                        errorMsg += "Please input numeric values only.\n";
+                        errorMsg += "Please input numeric values only. ";
                         isValid = false;
                     }
                 }
@@ -115,7 +115,7 @@ public class Main extends Application {
                 // one or more fields were left empty
                 if(!errorMsg.trim().isEmpty())
                 {
-                    errorMsg += "Please try again.";
+                    errorMsg += "\nTry again.";
                 }
 
                 // display the error message to the user
